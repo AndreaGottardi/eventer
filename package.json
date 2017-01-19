@@ -1,8 +1,8 @@
 {
-  "name": "eventer",
+  "name": "Eventer",
   "version": "1.0.0",
   "description": "Utility for easy events handling",
-  "main": "index.js",
+  "main": "eventer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
