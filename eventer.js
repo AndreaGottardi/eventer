@@ -112,7 +112,7 @@ class Eventer {
 			return this.unbindAll( eventName, DOMElement );
 		}
 		if( typeof eventName == 'string' && typeof DOMElement == 'object' && typeof eventFunction == 'function' ) {
-			return unbindEvent( eventName, DOMElement, eventFunction );
+			return this.unbindEvent( eventName, DOMElement, eventFunction );
 		}
 		return false;
 	}
