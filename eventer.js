@@ -6,10 +6,10 @@ class Eventer {
 		// a property with the DOMElement, reference and his id, and another
 		// obects array with the event name and the function
 		// reference associated with the event
-		var this._internals = [];
+		this._internals = [];
 		// This is a value used to associate an unique id
 		// to an HTML element
-		var this.lastIndex = 0;
+		this.lastIndex = 0;
 	}
 
 	// bindEvent is the main addEventListener function,
@@ -52,4 +52,4 @@ class Eventer {
 	}
 }
 
-export Eventer;
+export {Eventer};
