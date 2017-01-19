@@ -49,7 +49,19 @@ class Eventer {
 
 	// This remove a specific event handler from a specific element
 	unbindEvent( eventName, DOMElement, eventFunction ) {
-
+		var found = this.getInternal( DOMElement );
+		var removed = 0;
+		if( this._internals[found] ) {
+			for (var i = 0; i < this._internals[found].functions.length; i++) {
+				var currentFunction = this._internals[found].functions[i];
+				if( currentFunction.event == eventName && currentFunction.handler == eventFunction ) {
+					DOMElement.removeEventListener( eventName, currentFunction.handler );
+					this._internals[found].functions.splice( i, 1 );
+					removed++;
+				}
+			}
+		}
+		return removed;
 	}
 
 	// This remove all the listener for a specific event
@@ -90,7 +102,7 @@ class Eventer {
 	// Shorthand for all the above three functions,
 	// depending on the parameters number
 	off( eventName, DOMElement, eventFunction ) {
-
+		// TODO
 	}
 
 	// Some utilities
