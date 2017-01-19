@@ -52,7 +52,7 @@ class Eventer {
 		var found = this.getInternal( DOMElement );
 		var removed = 0;
 		if( this._internals[found] ) {
-			for (var i = 0; i < this._internals[found].functions.length; i++) {
+			for (var i = 0; i < this._internals[found].functions.length && removed === 0; i++) {
 				var currentFunction = this._internals[found].functions[i];
 				if( currentFunction.event == eventName && currentFunction.handler == eventFunction ) {
 					DOMElement.removeEventListener( eventName, currentFunction.handler );
@@ -101,8 +101,20 @@ class Eventer {
 
 	// Shorthand for all the above three functions,
 	// depending on the parameters number
+	// return the functions return on success or false if none has been called
 	off( eventName, DOMElement, eventFunction ) {
-		// TODO
+		if( typeof eventName == 'object' ) {
+			// Instead of eventName we've receved DOMElement
+			DOMElement = eventName;
+			return this.clearAll( DOMElement );
+		}
+		if( typeof eventName == 'string' && typeof DOMElement == 'object' && typeof eventFunction == 'undefined' ) {
+			return this.unbindAll( eventName, DOMElement );
+		}
+		if( typeof eventName == 'string' && typeof DOMElement == 'object' && typeof eventFunction == 'function' ) {
+			return unbindEvent( eventName, DOMElement, eventFunction );
+		}
+		return false;
 	}
 
 	// Some utilities
