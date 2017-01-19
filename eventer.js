@@ -62,6 +62,7 @@ class Eventer {
 				var currentFunction = this._internals[found].functions[i];
 				if( currentFunction.event == eventName ) {
 					DOMElement.removeEventListener( eventName, currentFunction.handler );
+					this._internals[found].functions.splice( i, 1 );
 					removed++;
 				}
 			}
@@ -72,7 +73,18 @@ class Eventer {
 	// This one remove all the event listeners for a specific element
 	// regardless of the event type
 	clearAll( DOMElement ) {
-
+		var found = this.getInternal( DOMElement );
+		var removed = 0;
+		if( this._internals[found] ) {
+			for (var i = 0; i < this._internals[found].functions.length; i++) {
+				var currentFunction = this._internals[found].functions[i];
+				DOMElement.removeEventListener( currentFunction.event, currentFunction.handler );
+				removed++;
+			}
+			// Clear functions array
+			this._internals[found].functions = [];
+		}
+		return removed;
 	}
 
 	// Shorthand for all the above three functions,
@@ -81,6 +93,7 @@ class Eventer {
 
 	}
 
+	// Some utilities
 	getIdentifier() {
 		return ++this.lastIndex;
 	}
