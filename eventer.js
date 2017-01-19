@@ -17,10 +17,29 @@ class Eventer {
 	// DOMElement is the non-live DOM instance of the element (usualy retrived with querySelector)
 	// eventFunction is the callback function to trigger when the event is fired
 	bindEvent( eventName, DOMElement, eventFunction  ) {
-		this._internals.push({
-			element: { id: this.getIdentifier(), reference: DOMElement },
-			functions: []
-		});
+		var found = this.getInternal( DOMElement );
+		if( this._internals[found] ) {
+			// We have this element already in store
+			this._internals[found].functions.push({
+				event: eventName,
+				handler: eventFunction
+			});
+		} else {
+			// Let's add a new one
+			var identifier = this.getIdentifier();
+			this._internals.push({
+				element: { id: identifier, reference: DOMElement },
+				functions: [{
+					event: eventName,
+					handler: eventFunction
+				}]
+			});
+			// And save the id in the DOMElement
+			DOMElement.eventerId = identifier;
+		}
+
+		// After we've saved our records let's add the actual listener
+		DOMElement.addEventListener( eventName, eventFunction );
 	}
 
 	// Just a shorthand for bindEvent
@@ -34,9 +53,20 @@ class Eventer {
 	}
 
 	// This remove all the listener for a specific event
-	// within a specific element
+	// within a specific element, return the number of unbinded events
 	unbindAll( eventName, DOMElement ) {
-
+		var found = this.getInternal( DOMElement );
+		var removed = 0;
+		if( this._internals[found] ) {
+			for (var i = 0; i < this._internals[found].functions.length; i++) {
+				var currentFunction = this._internals[found].functions[i];
+				if( currentFunction.event == eventName ) {
+					DOMElement.removeEventListener( eventName, currentFunction.handler );
+					removed++;
+				}
+			}
+		}
+		return removed;
 	}
 
 	// This one remove all the event listeners for a specific element
@@ -49,6 +79,21 @@ class Eventer {
 	// depending on the parameters number
 	off( eventName, DOMElement, eventFunction ) {
 
+	}
+
+	getIdentifier() {
+		return ++this.lastIndex;
+	}
+
+	getInternal( DOMElement ) {
+		// Look for the DOMElement in the collection
+		// using normal for beacuse it's 98% better for performance
+		var found = false;
+		for (var i = 0; i < this._internals.length && !found; i++) {
+			var internal = this._internals[i];
+			if( internal.element.reference.eventerId == DOMElement.eventerId ) found = i;
+		}
+		return found;
 	}
 }
 
