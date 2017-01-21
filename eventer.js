@@ -1,7 +1,7 @@
 // Eventer main class - Developed by Andrea Gorrardi and Borra Daniele
 
 class Eventer {
-	constructor() {
+	constructor( extend ) {
 		// Array of ojects, each object is composed by
 		// a property with the DOMElement, reference and his id, and another
 		// obects array with the event name and the function
@@ -10,6 +10,27 @@ class Eventer {
 		// This is a value used to associate an unique id
 		// to an HTML element
 		this.lastIndex = 0;
+
+		// FIXME _self is used to reference on extend function
+		var _self = this;
+
+		// If extend is setted to true, we're going to extend
+		// the HTMLElement prototype
+		if( extend ) {
+			// TODO setup correct names, or just on and off
+			HTMLElement.prototype.eventerBind = function( eventName, eventFunction ) {
+				_self.bindEvent( eventName, this, eventFunction );
+			}
+			HTMLElement.prototype.eventerUnbind = function( eventName, eventFunction ) {
+				_self.unbindEvent( eventName, this, eventFunction );
+			}
+			HTMLElement.prototype.eventerUnbindAll = function( eventName ) {
+				_self.unbindAll( eventName, this );
+			}
+			HTMLElement.prototype.eventerClear = function() {
+				_self.clearAll( this );
+			}
+		}
 	}
 
 	// bindEvent is the main addEventListener function,
