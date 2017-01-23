@@ -18,7 +18,7 @@ First you'll need to create an Eventer main object, you can pass true to the con
 	var eventer = new Eventer(true);
 ```
 
-Then you can accesso all the four methods exposed by Eventer objects.
+Then you can access all the four methods exposed by Eventer objects.
 To bind an event you simply need to call *bindEvent* linke this
 
 ```javascript
@@ -37,3 +37,18 @@ Plus, if you have passed *true* to the constructor you are able to use the *even
 	});
 ```
 ### Remove event listener
+
+If you need to remove event you can use one of these methods
+
+```javascript
+	eventer.unbindEvent( eventName, DOMElement, eventFunction );
+	eventer.unbindAll( eventName, DOMElement );
+	eventer.clearAll( DOMElement );
+```
+or you may rather use the *off* event, witch is a shorthand for the above three methods, it will handle their call depending on the params type and number
+
+```javascript
+	eventer.off( eventName, DOMElement, eventFunction );
+	// or
+	eventer.off( eventName, DOMElement );
+```
