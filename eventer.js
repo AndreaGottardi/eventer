@@ -40,7 +40,7 @@ class Eventer {
 		if( typeof DOMElement != 'object' ) throw "Second argument mus be a DOMElement compatile object";
 		if( typeof eventFunction != 'function' ) throw "Last argument must be a function";
 
-		var found = this.getInternal( DOMElement );
+		var found = this._getInternal( DOMElement );
 		if( this._internals[found] ) {
 			// We have this element already in store
 			this._internals[found].functions.push({
@@ -49,7 +49,7 @@ class Eventer {
 			});
 		} else {
 			// Let's add a new one
-			var identifier = this.getIdentifier();
+			var identifier = this._getIdentifier();
 			this._internals.push({
 				element: { id: identifier, reference: DOMElement },
 				functions: [{
@@ -72,7 +72,7 @@ class Eventer {
 
 	// This remove a specific event handler from a specific element
 	unbindEvent( eventName, DOMElement, eventFunction ) {
-		var found = this.getInternal( DOMElement );
+		var found = this._getInternal( DOMElement );
 		var removed = 0;
 		if( this._internals[found] ) {
 			for (var i = 0; i < this._internals[found].functions.length && removed === 0; i++) {
@@ -90,7 +90,7 @@ class Eventer {
 	// This remove all the listener for a specific event
 	// within a specific element, return the number of unbinded events
 	unbindAll( eventName, DOMElement ) {
-		var found = this.getInternal( DOMElement );
+		var found = this._getInternal( DOMElement );
 		var removed = 0;
 		if( this._internals[found] ) {
 			for (var i = 0; i < this._internals[found].functions.length; i++) {
@@ -108,7 +108,7 @@ class Eventer {
 	// This one remove all the event listeners for a specific element
 	// regardless of the event type
 	clearAll( DOMElement ) {
-		var found = this.getInternal( DOMElement );
+		var found = this._getInternal( DOMElement );
 		var removed = 0;
 		if( this._internals[found] ) {
 			for (var i = 0; i < this._internals[found].functions.length; i++) {
@@ -141,11 +141,11 @@ class Eventer {
 	}
 
 	// Some utilities
-	getIdentifier() {
+	_getIdentifier() {
 		return ++this.lastIndex;
 	}
 
-	getInternal( DOMElement ) {
+	_getInternal( DOMElement ) {
 		// Look for the DOMElement in the collection
 		// using normal for beacuse it's 98% better for performance
 		var found = false;
