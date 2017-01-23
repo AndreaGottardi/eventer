@@ -17,18 +17,15 @@ class Eventer {
 		// If extend is setted to true, we're going to extend
 		// the HTMLElement prototype
 		if( extend ) {
-			// TODO setup correct names, or just on and off
-			HTMLElement.prototype.eventerBind = function( eventName, eventFunction ) {
-				_self.bindEvent( eventName, this, eventFunction );
+			HTMLElement.prototype.eventerOn = function( eventName, eventFunction ) {
+				_self.on( eventName, this, eventFunction );
 			}
-			HTMLElement.prototype.eventerUnbind = function( eventName, eventFunction ) {
-				_self.unbindEvent( eventName, this, eventFunction );
-			}
-			HTMLElement.prototype.eventerUnbindAll = function( eventName ) {
-				_self.unbindAll( eventName, this );
-			}
-			HTMLElement.prototype.eventerClear = function() {
-				_self.clearAll( this );
+			HTMLElement.prototype.eventerOff = function( eventName, eventFunction ) {
+				if( typeof eventName == 'undefined' && typeof eventFunction == 'undefined' ) {
+					_self.off( this );
+				} else {
+					_self.off( eventName, this, eventFunction );
+				}
 			}
 		}
 	}
@@ -38,6 +35,11 @@ class Eventer {
 	// DOMElement is the non-live DOM instance of the element (usualy retrived with querySelector)
 	// eventFunction is the callback function to trigger when the event is fired
 	bindEvent( eventName, DOMElement, eventFunction  ) {
+		// Let's check params
+		if( typeof eventName != 'string' ) throw "First argument must be a string, representing an event";
+		if( typeof DOMElement != 'object' ) throw "Second argument mus be a DOMElement compatile object";
+		if( typeof eventFunction != 'function' ) throw "Last argument must be a function";
+
 		var found = this.getInternal( DOMElement );
 		if( this._internals[found] ) {
 			// We have this element already in store
