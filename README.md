@@ -2,7 +2,7 @@
 Utility for easy events handling
 
 ## Installing
-You can easy install it as a dependency for your project with nop
+You can easy install it as a dependency for your project with npm
 
 ```
 npm install eventer
@@ -29,10 +29,10 @@ where *eventName* rappresent the event name to listen to,
 *DOMElement* is the non-live DOM instance of the element (usualy retrived with querySelector) and *eventFunction* is the callback function to trigger when the event is fired
 You can also use the *on* shorthand with the same parameters
 
-Plus, if you have passed *true* to the constructor you are able to use the *eventerBind* method directly on the HTMLElement.
+Plus, if you have passed *true* to the constructor you are able to use the *eventerOn* method directly on the HTMLElement.
 
 ```javascript
-	document.querySelector('.bottone').eventerBind('click', function() {
+	document.querySelector('.bottone').eventerOn('click', function() {
 		// Your awesome code here...
 	});
 ```
