@@ -140,6 +140,10 @@ class Eventer {
 		return false;
 	}
 
+	getListeners( DOMElement ) {
+		return this._internals[ this._getInternal( DOMElement ) ].functions;
+	}
+
 	// Some utilities
 	_getIdentifier() {
 		return ++this.lastIndex;
