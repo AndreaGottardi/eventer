@@ -1,5 +1,5 @@
 {
-  "name": "Eventer",
+  "name": "eventer-js",
   "version": "0.1.0",
   "description": "Utility for easy events handling",
   "main": "./src/eventer.js",
