@@ -161,4 +161,4 @@ class Eventer {
 	}
 }
 
-export {Eventer};
+module.exports = Eventer;
