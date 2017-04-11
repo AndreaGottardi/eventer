@@ -5,10 +5,8 @@ Utility for easy events handling
 You can easily install it as a dependency for your project with npm
 
 ```
-npm install eventer
+npm install eventer-js
 ```
-
-_Not working for now. I'll need to clone this repo and remove *.git* folder_
 
 ## Using it
 
@@ -17,7 +15,7 @@ _Not working for now. I'll need to clone this repo and remove *.git* folder_
 First you'll need to import and then create an Eventer main object, you can pass true to the constructor to tell eventer that you want him to extend the default *HTMLElement* prototype, this is under param to avoid unwanted behaviour and conflicts with other libraries or tools.
 
 ```javascript
-	import {Eventer} from './lib/Eventer/eventer';
+	import {Eventer} from './lib/Eventer/eventer-js';
 	var eventer = new Eventer(true);
 ```
 
@@ -25,10 +23,10 @@ Then you can access all the four methods exposed by Eventer objects.
 To bind an event you simply need to call *bindEvent* this way
 
 ```javascript
-	eventer.bindEvent( eventName, DOMElement, eventFunction  );
+	eventer.bindEvent( eventName, DOMElement, eventFunction, useCapture  );
 ```
 
-where *eventName* is the event name to listen to, *DOMElement* is the non-live DOM instance of the element (usualy retrived with querySelector) and *eventFunction* is the callback function to trigger when the event is fired. You can also use the *on* shorthand with the same parameters
+where *eventName* is the event name to listen to, *DOMElement* is the non-live DOM instance of the element (usualy retrived with querySelector) and *eventFunction* is the callback function to trigger when the event is fired, you can also set *useCapture* as you do in vanilla js. You can also use the *on* shorthand with the same parameters
 
 Plus, if you have passed *true* to the constructor you are able to use the *eventerOn* method directly on the HTMLElement.
 

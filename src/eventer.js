@@ -17,8 +17,8 @@ class Eventer {
 		// If extend is setted to true, we're going to extend
 		// the HTMLElement prototype
 		if( extend ) {
-			HTMLElement.prototype.eventerOn = function( eventName, eventFunction ) {
-				_self.on( eventName, this, eventFunction );
+			HTMLElement.prototype.eventerOn = function( eventName, eventFunction, useCapture ) {
+				_self.on( eventName, this, eventFunction, useCapture );
 			}
 			HTMLElement.prototype.eventerOff = function( eventName, eventFunction ) {
 				if( typeof eventName == 'undefined' && typeof eventFunction == 'undefined' ) {
@@ -34,7 +34,7 @@ class Eventer {
 	// eventName rappresent the event name to listen to
 	// DOMElement is the non-live DOM instance of the element (usualy retrived with querySelector)
 	// eventFunction is the callback function to trigger when the event is fired
-	bindEvent( eventName, DOMElement, eventFunction  ) {
+	bindEvent( eventName, DOMElement, eventFunction, useCapture  ) {
 		// Let's check params
 		if( typeof eventName != 'string' ) throw "First argument must be a string, representing an event";
 		if( typeof DOMElement != 'object' ) throw "Second argument mus be a DOMElement compatile object";
@@ -62,7 +62,7 @@ class Eventer {
 		}
 
 		// After we've saved our records let's add the actual listener
-		DOMElement.addEventListener( eventName, eventFunction );
+		DOMElement.addEventListener( eventName, eventFunction, useCapture );
 	}
 
 	// Just a shorthand for bindEvent
