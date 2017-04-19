@@ -97,10 +97,10 @@ class Eventer {
 				var currentFunction = this._internals[found].functions[i];
 				if( currentFunction.event == eventName ) {
 					DOMElement.removeEventListener( eventName, currentFunction.handler );
-					this._internals[found].functions.splice( i, 1 );
 					removed++;
 				}
 			}
+			this._internals[found].functions = [];
 		}
 		return removed;
 	}
