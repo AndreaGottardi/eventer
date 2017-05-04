@@ -6,7 +6,8 @@
   "module": "./src/eventer.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --progress --colors"
+    "build": "WEBPACK_ENV=build webpack --progress --colors",
+	"prod": "WEBPACK_ENV=prod webpack -p --progress --colors"
   },
   "repository": {
     "type": "git",
