@@ -31,9 +31,9 @@ where *eventName* is the event name to listen to, *DOMElement* is the non-live D
 Plus, if you have passed *true* to the constructor you are able to use the *eventerOn* method directly on the HTMLElement.
 
 ```javascript
-	document.querySelector('.bottone').eventerOn('click', function() {
+	document.querySelector('.bottone').on('click', function() {
 		// Your awesome code here...
-	});
+	}, true);
 ```
 ### Remove event listener
 

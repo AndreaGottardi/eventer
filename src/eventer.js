@@ -17,10 +17,10 @@ class Eventer {
 		// If extend is setted to true, we're going to extend
 		// the HTMLElement prototype
 		if( extend ) {
-			HTMLElement.prototype.eventerOn = function( eventName, eventFunction, useCapture ) {
+			HTMLElement.prototype.on = function( eventName, eventFunction, useCapture ) {
 				_self.on( eventName, this, eventFunction, useCapture );
 			}
-			HTMLElement.prototype.eventerOff = function( eventName, eventFunction ) {
+			HTMLElement.prototype.off = function( eventName, eventFunction ) {
 				if( typeof eventName == 'undefined' && typeof eventFunction == 'undefined' ) {
 					_self.off( this );
 				} else {
@@ -36,9 +36,9 @@ class Eventer {
 	// eventFunction is the callback function to trigger when the event is fired
 	bindEvent( eventName, DOMElement, eventFunction, useCapture  ) {
 		// Let's check params
-		if( typeof eventName != 'string' ) throw "First argument must be a string, representing an event";
-		if( typeof DOMElement != 'object' ) throw "Second argument mus be a DOMElement compatile object";
-		if( typeof eventFunction != 'function' ) throw "Last argument must be a function";
+		if( typeof eventName != 'string' ) throw 'First argument must be a string, representing an event';
+		if( typeof DOMElement != 'object' ) throw 'Second argument mus be a DOMElement compatile object';
+		if( typeof eventFunction != 'function' ) throw 'Third argument must be a function';
 
 		var found = this._getInternal( DOMElement );
 		if( this._internals[found] ) {
