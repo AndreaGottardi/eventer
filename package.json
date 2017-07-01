@@ -1,6 +1,6 @@
 {
   "name": "eventer-js",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Utility for easy events handling",
   "main": "./src/eventer.js",
   "module": "./src/eventer.js",
