@@ -112,6 +112,7 @@ var Eventer = function () {
 		if (extend) {
 			HTMLElement.prototype.on = function (eventName, eventFunction, useCapture) {
 				_self.on(eventName, this, eventFunction, useCapture);
+				return this;
 			};
 			HTMLElement.prototype.off = function (eventName, eventFunction) {
 				if (typeof eventName == 'undefined' && typeof eventFunction == 'undefined') {
@@ -119,6 +120,7 @@ var Eventer = function () {
 				} else {
 					_self.off(eventName, this, eventFunction);
 				}
+				return this;
 			};
 		}
 	}
